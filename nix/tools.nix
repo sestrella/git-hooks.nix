@@ -47,6 +47,7 @@
 , nodePackages
 , ocamlPackages
 , opam
+, opentofu
 , ormolu
 , pkgsBuildBuild
 , poetry
@@ -126,6 +127,8 @@ in
     nil
     nixfmt
     nixpkgs-fmt
+    opam
+    opentofu
     ormolu
     pre-commit-hook-ensure-sops
     poetry
