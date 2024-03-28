@@ -2777,7 +2777,7 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
           name = "opentofu-format";
           description = "Format OpenTofu (`.tf`) files.";
           package = tools.opentofu;
-          entry = "${hooks.opentofu-format.package}/bin/tofu fmt --check";
+          entry = "${hooks.opentofu-format.package}/bin/tofu fmt -check -diff";
           files = "\\.tf$";
         };
       ormolu =
@@ -3235,7 +3235,7 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
           name = "terraform-format";
           description = "Format Terraform (`.tf`) files.";
           package = tools.terraform;
-          entry = "${hooks.terraform-format.package}/bin/terraform fmt --check";
+          entry = "${hooks.terraform-format.package}/bin/terraform fmt -check -diff";
           files = "\\.tf$";
         };
       tflint =
