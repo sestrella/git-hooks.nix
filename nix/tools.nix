@@ -127,7 +127,6 @@ in
     nil
     nixfmt
     nixpkgs-fmt
-    opam
     opentofu
     ormolu
     pre-commit-hook-ensure-sops
