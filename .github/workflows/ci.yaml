@@ -32,7 +32,7 @@ jobs:
         name: pre-commit-hooks
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: rm -rf /opt&
-    - run: nix flake check -L --show-trace
-    - run: nix eval .#lib.x86_64-linux.run --show-trace --impure
+    - run: nix flake check -L --show-trace --impure
       env:
         NIXPKGS_ALLOW_UNFREE: 1
+    - run: nix eval .#lib.x86_64-linux.run --show-trace
