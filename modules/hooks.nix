@@ -2772,14 +2772,6 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
           entry = "${hooks.opam-lint.package}/bin/opam lint";
           files = "\\.opam$";
         };
-      opentofu-format =
-        {
-          name = "opentofu-format";
-          description = "Format OpenTofu (`.tf`) files.";
-          package = tools.opentofu;
-          entry = "${hooks.opentofu-format.package}/bin/tofu fmt -check -diff";
-          files = "\\.tf$";
-        };
       ormolu =
         {
           name = "ormolu";
@@ -3234,8 +3226,25 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
         {
           name = "terraform-format";
           description = "Format Terraform (`.tf`) files.";
-          package = tools.terraform;
-          entry = "${hooks.terraform-format.package}/bin/terraform fmt -check -diff";
+          package = tools.opentofu;
+          entry =
+            let
+              terraform-fmt = pkgs.writeScriptBin "terraform-fmt" ''
+                #!/usr/bin/env bash
+
+                opentofu_or_terraform() {
+                  local bin_dir=${hooks.terraform-format.package}
+                  if [ -f "$${bin_dir}/bin/tofu" ]; then
+                    $${bin_dir}/bin/tofu "$@"
+                  else
+                    $${bin_dir}/bin/terraform "$@"
+                  fi
+                }
+
+                opentofu_or_terraform fmt -check -diff "$@"
+              '';
+            in
+            "${terraform-fmt}/bin/terraform-fmt";
           files = "\\.tf$";
         };
       tflint =
