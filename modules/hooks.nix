@@ -3234,10 +3234,10 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
 
                 opentofu_or_terraform() {
                   local bin_dir=${hooks.terraform-format.package}
-                  if [ -f "$${bin_dir}/bin/tofu" ]; then
-                    $${bin_dir}/bin/tofu "$@"
+                  if [ -f "''${bin_dir}/bin/tofu" ]; then
+                    ''${bin_dir}/bin/tofu "$@"
                   else
-                    $${bin_dir}/bin/terraform "$@"
+                    ''${bin_dir}/bin/terraform "$@"
                   fi
                 }
 
