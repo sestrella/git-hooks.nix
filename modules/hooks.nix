@@ -2690,6 +2690,15 @@ lib.escapeShellArgs (lib.concatMap (ext: [ "--ghc-opt" "-X${ext}" ]) hooks.ormol
             builtins.toString script;
           files = "\\.go$";
         };
+      gomod2nix = {
+        name = "gomod2nix";
+        description = "Convert applications using Go modules to Nix expressions";
+        package = tools.gomod2nix;
+        entry = builtins.toString (pkgs.writeShellScript "precommit-gomod2nix" ''
+          ${hooks.gomod2nix.package}/bin/gomod2nix generate --jobs ${hooks.gomod2nix.settings.jobs}
+        '');
+        files = "go.mod";
+      };
       gotest = {
         name = "gotest";
         description = "Run go tests";
