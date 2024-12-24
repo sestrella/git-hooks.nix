@@ -599,6 +599,19 @@ in
           };
         };
       };
+      gomod2nix = mkOption {
+        description = "gomod2nix hook";
+        type = types.submodule {
+          imports = [ hookModule ];
+          options.settings = {
+            jobs = mkOption {
+              type = types.int;
+              description = "Max number of concurrent jobs";
+              default = 10;
+            };
+          };
+        };
+      };
       headache = mkOption {
         description = "headache hook";
         type = types.submodule {
